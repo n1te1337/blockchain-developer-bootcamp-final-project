@@ -1,0 +1,33 @@
+name: Truffle Build
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
+      - name: Install Ganache
+        run: npm install ganache-cli -g
+
+      - name: Install Truffle
+        run: npm install truffle -g
+
+      - name: Install Truffle dependencies
+        run: npm install
+
+      - name: Run Ganache in the background
+        run: ganache-cli &
+
+      - name: Run Truffle tests
+        run: truffle test --network test
