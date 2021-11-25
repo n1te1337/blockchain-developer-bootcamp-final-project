@@ -3,12 +3,12 @@ const abiJson = [
     "inputs": [
       {
         "internalType": "address",
-        "name": "tokenAddress",
+        "name": "_tokenAddress",
         "type": "address"
       },
       {
         "internalType": "address",
-        "name": "priceFeedAddress",
+        "name": "_priceFeedAddress",
         "type": "address"
       }
     ],
@@ -97,7 +97,7 @@ const abiJson = [
     "inputs": [
       {
         "internalType": "address",
-        "name": "account",
+        "name": "_account",
         "type": "address"
       }
     ],

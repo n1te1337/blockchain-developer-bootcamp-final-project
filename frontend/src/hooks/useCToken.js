@@ -11,7 +11,7 @@ export const useCToken = () => {
   const { account } = useWeb3React();
   const { isValidNetwork } = useIsValidNetwork();
   //const cTokenContractAddress = '0xd6801a1dffcd0a410336ef88def4320d6df1883e'; // rinkeby
-  const cTokenContractAddress = '0x31a3eabD0768E7Fc48442b8Be26AC310c5297b62';
+  const cTokenContractAddress = '0xBc3F9EE5e88B3A13779CA25fb4F11cE2F453568C';
   //const cTokenContract = useContract(cTokenContractAddress, C_TOKEN_ABI);
   const cTokenContract = useContract(cTokenContractAddress, VENDOR_ABI);
   const { setCTokenBalance, setExchangeRate, setTxnStatus, cTokenBalance, exchangeRate } = useAppContext();
