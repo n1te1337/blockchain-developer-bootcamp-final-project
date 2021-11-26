@@ -3,10 +3,11 @@ pragma solidity 0.8.0;
 
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol";
+
 import "./ACMEToken.sol";
 
 /// @title Contract facilitating selling ACME tokens and withdrawing the proceeds
-/// @author Pav
+/// @author n1te1337
 /// @notice Relies on ETH/USD Chainlink Data Feed
 /// @dev Extends Ownable contract to restrict the withdrawal functionality
 contract Vendor is Ownable {

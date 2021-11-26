@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.0;
 
-/// @title Mock contract to imitate Chainlink Data Feed
-/// @author Pav
+/// @title Mock contract to imitate Chainlink Data Feed in tests
+/// @author n1te1337
 /// @notice Used in lieu of ETH/USD Data Feed
 /// @dev Uses hardcoded initial values
 contract MockAggregatorV3 {
