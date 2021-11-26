@@ -1,10 +1,12 @@
 # Final project - USD pegged token sale
 
-## Deployed version url:
+![Truffle test suite](https://github.com/n1te1337/blockchain-developer-bootcamp-final-project/actions/workflows/truffle.yaml/badge.svg)
+
+## Deployed version url
 
 https://main.dtqo6rsppdapw.amplifyapp.com
 
-## How to run this project locally:
+## How to run this project locally
 
 ### Prerequisites
 
@@ -18,7 +20,7 @@ https://main.dtqo6rsppdapw.amplifyapp.com
 - Run `yarn install` in the project root to install Truffle build and smart contract dependencies
 - Run local testnet on port `7545` with an Ethereum client, e.g. Ganache
 - Run `truffle deploy` to deploy the contracts to the testnet
-- Run `truffle test` to run the testsuite
+- Run `truffle test` to run the test suite
 
 ### Frontend
 
@@ -40,7 +42,7 @@ https://main.dtqo6rsppdapw.amplifyapp.com
 
 TODO: https://youtube.com
 
-## Public Ethereum wallet for certification:
+## Public Ethereum wallet for certification
 
 `0x225D0A7C8832E0Dcb9bF60F13D17b4D32128BE8b`
 
@@ -68,7 +70,7 @@ The fronend web app for the token sale serves as an interface for the dapp and i
 - `contracts`: Smart contracts that are deployed in the Ropsten testnet.
 - `migrations`: Migration files for deploying contracts in `contracts` directory.
 - `test`: Tests for smart contracts.
-- `.github`: Github Actions config to run the testsuite on every code push
+- `.github`: Github Actions config to run the test suite on every code push
 
 ## Environment variables (not needed for running project locally)
 
