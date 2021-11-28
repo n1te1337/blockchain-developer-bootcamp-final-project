@@ -7,14 +7,16 @@ function useWalletConnectionModal() {
   const { isValidNetwork } = useIsValidNetwork();
   const { active } = useWeb3React();
 
-  const { setWalletConnectModal, isWalletConnectionModalOpen } = useAppContext();
+  const { setWalletConnectModal, isWalletConnectModalOpen } = useAppContext();
 
   useEffect(() => {
-    setWalletConnectModal(!active || !isValidNetwork);
+    if (active && isValidNetwork) {
+      setWalletConnectModal(false);
+    }
   }, [active, isValidNetwork]);
 
   return {
-    isWalletConnectionModalOpen,
+    isWalletConnectModalOpen,
     setWalletConnectModal,
   };
 }

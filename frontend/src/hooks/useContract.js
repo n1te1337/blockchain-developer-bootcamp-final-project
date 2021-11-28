@@ -1,7 +1,6 @@
 import { useMemo } from 'react';
 import {
   Contract,
-  // ContractInterface
 } from '@ethersproject/contracts';
 import { AddressZero } from '@ethersproject/constants';
 import { useWeb3React } from '@web3-react/core';

@@ -1,75 +1,48 @@
 import React from 'react';
 import styled from 'styled-components';
-import ethLogo from '../static/eth-logo.svg';
-import compLogo from '../static/comp-logo.svg';
+import CryptoIcon from "react-crypto-icons";
 import Text from './Text';
 import { colors } from '../theme';
 
 const InputContainer = styled.div`
-  border: 1px solid ${colors.green};
-  border-radius: 8px;
   padding: 10px;
   input {
     width: 100%;
-    border-radius: 8px;
-    border: 1px solid ${colors.green};
     padding: 5px;
   }
 `;
 
-const EthLogo = styled.img.attrs({
-  src: ethLogo,
-})`
-  height: 36px;
-  width: 36px;
+const IconWrapper = styled.div`
+  align-items: center;
 `;
-
-const CompLogo = styled.img.attrs({
-  src: compLogo,
-})`
-  height: 36px;
-  width: 36px;
-`;
-
-const IconWrapper = styled.div``;
 
 const IconMapping = {
   eth: (
-    <IconWrapper className="d-flex">
-      <EthLogo />
-      <Text lineHeight="35px" color={colors.brown}>
-        ETH
-      </Text>
+    <IconWrapper style={{ alignItems: 'center', minWidth: '90px' }} className="d-flex">
+      <span style={{ verticalAlign: 'bottom' }}><CryptoIcon name="eth" size={25} /></span>
+      <Text style={{ paddingLeft: '6px', verticalAlign: 'sub' }} color={colors.dark}>ETH</Text>
     </IconWrapper>
   ),
-  ctoken: (
-    <IconWrapper className="d-flex">
-      <CompLogo />
-      <Text lineHeight="35px" color={colors.brown}>
-        cETH
-      </Text>
-    </IconWrapper>
-  ),
-  default: (
-    <IconWrapper className="d-flex">
-      <CompLogo />
-      <Text lineHeight="35px" color={colors.brown}>
-        Token
-      </Text>
+  acme: (
+    <IconWrapper style={{ alignItems: 'center', minWidth: '90px' }} className="d-flex">
+      <span style={{ verticalAlign: 'bottom', minWidth: '30px' }}><CryptoIcon name="generic" size={25} /></span>
+      <Text style={{ paddingLeft: '6px', verticalAlign: 'sub' }} color={colors.dark}>ACME</Text>
     </IconWrapper>
   ),
 };
 
-const BalanceInput = ({ balance, value, setValue, currency = 'default', title = 'From' }) => {
+const BalanceInput = ({ balance, value, setValue, currency, disabled = false }) => {
   return (
     <InputContainer>
-      <div className="d-flex justify-content-between mb-3">
-        <Text color={colors.green}>{title}</Text>
-        <Text color={colors.green}>Balance: {balance}</Text>
-      </div>
-      <div className="d-flex">
+      <div className="input-group input-group-lg">
+        <span style={{ borderTopRightRadius: 0, borderBottomRightRadius: 0, borderRight: 0 }} className="input-group-text">
+          {IconMapping[currency.toLowerCase()]}
+        </span>
         <input
           type="number"
+          className="form-control"
+          style={{ paddingLeft: '1.5rem' }}
+          disabled={disabled}
           value={value}
           onChange={(e) => {
             if (setValue && e.target.value >= 0) {
@@ -77,7 +50,6 @@ const BalanceInput = ({ balance, value, setValue, currency = 'default', title = 
             }
           }}
         />
-        {IconMapping[currency.toLowerCase()]}
       </div>
     </InputContainer>
   );

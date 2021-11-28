@@ -10,10 +10,9 @@ const useEth = () => {
     if (library && active && account) {
       const balance = await library.getBalance(account);
 
-      // better to do safe math operations
       setEthBalance(parseFloat(formatEther(balance)).toPrecision(4));
     } else {
-      setEthBalance('--');
+      setEthBalance('0.0000');
     }
   };
   return { ethBalance, fetchEthBalance };

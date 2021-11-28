@@ -3,6 +3,9 @@ module.exports = {
     buildType: 'spa',
     enableBabelCache: false,
   },
+  plugins: [
+    'svg-react-component'
+  ],
   modifyWebpackConfig(opts) {
     const config = opts.webpackConfig;
 

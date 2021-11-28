@@ -6,6 +6,7 @@ import { Route } from 'react-router-dom';
 import './styles/App.css';
 import Home from './pages/Home';
 import Header from './components/Header';
+import Footer from './components/Footer';
 import { AppContextProvider } from './AppContext';
 
 function getLibrary(provider) {
@@ -19,6 +20,7 @@ const App = () => {
         <div>
           <Header />
           <Route exact path="/" component={Home} />
+          <Footer />
         </div>
       </Web3ReactProvider>
     </AppContextProvider>

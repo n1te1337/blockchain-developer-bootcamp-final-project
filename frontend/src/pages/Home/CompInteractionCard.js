@@ -1,12 +1,14 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import styled from 'styled-components';
+import { BagCheck, Check2Circle, EmojiFrown, ArrowLeft } from 'react-bootstrap-icons';
+import CryptoIcon from "react-crypto-icons";
 import Text from '../../components/Text';
 import BalanceInput from '../../components/BalanceInput';
 import Card from '../../components/Card';
 import Button from 'react-bootstrap/Button';
 import { colors } from '../../theme';
 import { ArrowDown } from 'react-bootstrap-icons';
-import { useCToken } from '../../hooks/useCToken';
+import { useACMEToken } from '../../hooks/useACMEToken';
 import { useAppContext } from '../../AppContext';
 import Spinner from 'react-bootstrap/Spinner';
 import useEth from '../../hooks/useEth';
@@ -16,7 +18,6 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  padding-top: 100px;
   -webkit-box-align: center;
   align-items: center;
   flex: 1 1 0%;
@@ -26,18 +27,52 @@ const Container = styled.div`
 
 const CompInteractionCard = () => {
   const [depositAmount, setDepositAmount] = useState(0);
-  const { deposit, cTokenBalance, exchangeRate } = useCToken();
+  const { setWalletConnectModal } = useAppContext();
+  const { deposit, acmeTokenBalance, exchangeRate } = useACMEToken();
   const { ethBalance } = useEth();
   const { txnStatus, setTxnStatus } = useTransaction();
-  const handleDepositSubmit = () => deposit(depositAmount);
-  // const convertedAmount = useMemo(() => Number(depositAmount / exchangeRate).toFixed(4), [depositAmount, exchangeRate]);
-  const convertedAmount = useMemo(() => Number(depositAmount * exchangeRate).toFixed(4), [depositAmount, exchangeRate]);
 
-  if (txnStatus === 'LOADING') {
+  const convertedAmount = useMemo(() => Number(depositAmount * exchangeRate), [depositAmount, exchangeRate]);
+
+  const handleDepositSubmit = () => {
+    if (depositAmount > 0) {
+      deposit(depositAmount);
+    }
+  }
+
+  useEffect(() => {
+    if (!!depositAmount && !exchangeRate) {
+      setWalletConnectModal(true);
+    }
+  }, [depositAmount])
+
+  if (txnStatus === 'APPROVING') {
     return (
       <Container show>
-        <Card style={{ maxWidth: 420, minHeight: 400 }}>
-          <Spinner animation="border" role="status" className="m-auto" />
+        <Card style={{ maxWidth: 420, minHeight: 390, paddingTop: 36, marginBottom: 48 }}>
+          <div style={{ textAlign: 'center' }}>
+            <CryptoIcon name="generic" size={45} />
+          </div>
+          <Text block center t3 className="mt-4">
+            Please approve the transaction in your wallet
+          </Text>
+          <Spinner animation="grow" role="status" variant="primary" className="m-auto" />
+        </Card>
+      </Container>
+    );
+  }
+
+  if (txnStatus === 'CONFIRMING') {
+    return (
+      <Container show>
+        <Card style={{ maxWidth: 420, minHeight: 390, paddingTop: 36, marginBottom: 48 }}>
+          <div style={{ textAlign: 'center' }}>
+            <CryptoIcon name="generic" size={45} />
+          </div>
+          <Text block center t3 className="mt-4">
+            Confirming the transaction on Ethereum blockchain
+          </Text>
+          <Spinner animation="border" role="status" variant="primary" className="m-auto" />
         </Card>
       </Container>
     );
@@ -46,11 +81,19 @@ const CompInteractionCard = () => {
   if (txnStatus === 'COMPLETE') {
     return (
       <Container show>
-        <Card style={{ maxWidth: 420, minHeight: 400 }}>
-          <Text block center className="mb-5">
-            Txn Was successful!
+        <Card style={{ maxWidth: 420, minHeight: 390, paddingTop: 36, marginBottom: 48 }}>
+          <div style={{ textAlign: 'center' }}>
+            <CryptoIcon name="generic" size={45} />
+          </div>
+          <Text block center t3 className="mt-4">
+            Success! Enjoy your ACME tokens
           </Text>
-          <Button onClick={() => setTxnStatus('NOT_SUBMITTED')}>Go Back</Button>
+          <div style={{ marginTop: 58, textAlign: 'center' }}>
+            <Check2Circle style={{ color: colors.blue }} size={48} />
+          </div>
+          <Button onClick={() => setTxnStatus('NOT_SUBMITTED')} style={{ marginTop: '4rem' }} size="lg">
+            <ArrowLeft style={{ verticalAlign: 'middle' }} /> Go back
+          </Button>
         </Card>
       </Container>
     );
@@ -59,24 +102,33 @@ const CompInteractionCard = () => {
   if (txnStatus === 'ERROR') {
     return (
       <Container show>
-        <Card style={{ maxWidth: 420, minHeight: 400 }}>
-          <Text>Txn ERROR</Text>
-          <Button onClick={() => setTxnStatus('NOT_SUBMITTED')}>Go Back</Button>
+        <Card style={{ maxWidth: 420, minHeight: 390, paddingTop: 36, marginBottom: 48 }}>
+          <div style={{ textAlign: 'center' }}>
+            <CryptoIcon name="generic" size={45} />
+          </div>
+          <Text block center t3 className="mt-4">
+            The transaction failed, check your wallet for additional information
+          </Text>
+          <div style={{ marginTop: 58, textAlign: 'center' }}>
+            <EmojiFrown style={{ color: colors.red }} size={48} />
+          </div>
+          <Button onClick={() => setTxnStatus('NOT_SUBMITTED')} style={{ marginTop: '4rem' }} size="lg">
+            <ArrowLeft style={{ verticalAlign: 'middle' }} /> Go back
+          </Button>
         </Card>
       </Container>
     );
   }
+
   return (
     <Container show>
-      <Card style={{ maxWidth: 420, minHeight: 400 }}>
-        <Text block t2 color={colors.green} className="mb-3">
-          Deposit
-        </Text>
-        <BalanceInput balance={ethBalance} value={depositAmount} setValue={setDepositAmount} currency="eth" />
-        <ArrowDown color={colors.green} size={36} style={{ margin: '1rem auto' }} />
-        <BalanceInput balance={cTokenBalance} value={convertedAmount} currency="cToken" title="To" />
-        <Button variant="outline-dark" disabled={depositAmount <= 0} className="mt-3" onClick={handleDepositSubmit}>
-          Deposit {depositAmount} ETH
+      <Card style={{ maxWidth: 420, minHeight: 390, marginBottom: 48 }}>
+        <Text style={{ textAlign: 'center' }} t2 color={colors.dark} className="mb-3">EXCHANGE</Text>
+        <BalanceInput balance={ethBalance} value={!depositAmount ? Number(depositAmount).toFixed(4) : depositAmount} setValue={setDepositAmount} currency="eth" />
+        <ArrowDown color={colors.dark} size={36} style={{ margin: '0.75rem auto' }} />
+        <BalanceInput balance={acmeTokenBalance} value={!convertedAmount ? Number(convertedAmount).toFixed(4) : convertedAmount} currency="acme" />
+        <Button style={{ margin: '2.25rem 0.5rem 0 0.5rem' }} variant="primary" size="lg" onClick={handleDepositSubmit}>
+          <BagCheck style={{ verticalAlign: 'baseline', paddingTop: '1px' }} /> Confirm
         </Button>
       </Card>
     </Container>

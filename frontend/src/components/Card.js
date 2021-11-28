@@ -3,12 +3,12 @@ import styled from 'styled-components';
 import { colors } from '../theme';
 
 const Card = styled(BootstrapCard)`
-  background-color: ${colors.lightBlue};
+  background-color: ${colors.white};
   width: 100%;
-  box-shadow: rgb(0 0 0 / 1%) 0px 0px 1px, rgb(0 0 0 / 4%) 0px 4px 8px, rgb(0 0 0 / 4%) 0px 16px 24px,
-    rgb(0 0 0 / 1%) 0px 24px 32px;
-  border-radius: 15px;
-  border-color: ${colors.green};
+  box-shadow: 0 0 0 1px rgb(63 63 68 / 5%), 0 1px 2px 0 rgb(63 63 68 / 15%);
+  transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms!important;
+  border-radius: 4px;
+  border-width: 0;
   padding: 20px;
 `;
 

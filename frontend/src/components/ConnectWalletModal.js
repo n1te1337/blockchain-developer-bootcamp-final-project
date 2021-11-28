@@ -19,17 +19,17 @@ const ConnectWalletModal = () => {
   const { setWalletConnectModal } = useWalletConnectionModal();
   return (
     <Modal show onHide={() => setWalletConnectModal(false)}>
-      <Modal.Header>
+      <Modal.Header style={{ justifyContent: 'start' }} closeButton>
         <MetamaskLogo />
-        <Text uppercase color="green" t3 lineHeight="40px" className="mx-2">
+        <Text style={{ marginLeft: '1rem' }} color="dark" t3 lineHeight="40px">
           Connect your Metamask wallet
         </Text>
       </Modal.Header>
       <Modal.Body>
-        <Text block className="mb-5">
-          You must connect a wallet to use this decentralized application
+        <Text block className="mb-3">
+          In order to use this decentralized application you must connect a web3 enabled wallet
         </Text>
-        <Button variant="outline-dark" onClick={() => activate(injected)}>
+        <Button style={{ float: 'right' }} variant="primary" onClick={() => activate(injected)}>
           Connect
         </Button>
       </Modal.Body>

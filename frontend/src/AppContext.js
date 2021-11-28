@@ -1,13 +1,13 @@
 import React, { createContext, useReducer } from 'react';
 
 const initialContext = {
-  ethBalance: '--',
+  ethBalance: '0.0000',
   setEthBalance: () => {},
-  cTokenBalance: '--',
-  setCTokenBalance: () => {},
+  acmeTokenBalance: '0.0000',
+  setACMETokenBalance: () => {},
   exchangeRate: 0,
   setExchangeRate: () => {},
-  isWalletConnectionModalOpen: false,
+  isWalletConnectModalOpen: false,
   setWalletConnectModal: () => {},
   txnStatus: 'NOT_SUBMITTED',
   setTxnStatus: () => {},
@@ -21,10 +21,10 @@ const appReducer = (state, { type, payload }) => {
         ethBalance: payload,
       };
 
-    case 'SET_C_TOKEN_BALANCE':
+    case 'SET_ACME_TOKEN_BALANCE':
       return {
         ...state,
-        cTokenBalance: payload,
+        acmeTokenBalance: payload,
       };
 
     case 'SET_EXCHANGE_RATE':
@@ -44,6 +44,8 @@ const appReducer = (state, { type, payload }) => {
         ...state,
         txnStatus: payload,
       };
+    case 'LOGOUT':
+      return initialContext;
     default:
       return state;
   }
@@ -59,9 +61,9 @@ export const AppContextProvider = ({ children }) => {
     setEthBalance: (balance) => {
       dispatch({ type: 'SET_ETH_BALANCE', payload: balance });
     },
-    cTokenBalance: store.cTokenBalance,
-    setCTokenBalance: (balance) => {
-      dispatch({ type: 'SET_C_TOKEN_BALANCE', payload: balance });
+    acmeTokenBalance: store.acmeTokenBalance,
+    setACMETokenBalance: (balance) => {
+      dispatch({ type: 'SET_ACME_TOKEN_BALANCE', payload: balance });
     },
     exchangeRate: store.exchangeRate,
     setExchangeRate: (rate) => {
@@ -74,6 +76,9 @@ export const AppContextProvider = ({ children }) => {
     txnStatus: store.txnStatus,
     setTxnStatus: (status) => {
       dispatch({ type: 'SET_TXN_STATUS', payload: status });
+    },
+    logout: () => {
+      dispatch({ type: 'LOGOUT' } );
     },
   };
 

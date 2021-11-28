@@ -29,12 +29,11 @@ https://main.dtqo6rsppdapw.amplifyapp.com
 - `yarn start`
 - Open `http://localhost:3000`
 
-### How to use the frontend locally with the local testnet
+### How to use the frontend with the local testnet
 
 - Stop the frontend if it's already running
 - `cd frontend`
-- `cp .env.template .env`
-- Open the `.env` file and populate it with the testnet network id (`LOCAL_NETWORK_ID`) and the address of the `Vendor` contract (`LOCAL_VENDOR_ADDRESS`) and save the file
+- Open the `constants.js` file and update the address of the `Vendor` contract (`ACME_TOKEN_CONTRACT_ADDRESS`) and save the file
 - `yarn start`
 - Open `http://localhost:3000`
 
