@@ -1,16 +1,16 @@
 import React from 'react';
-
-const footerStyles = {
-  position: 'absolute',
-  bottom: 0,
-  width: '100%',
-  height: '60px',
-  lineHeight: '60px',
-  backgroundColor: '#fff',
-  textAlign: 'center',
-};
+import isMobile from '../hooks/useIsMobile';
 
 const Footer = () => {
+  const footerStyles = {
+    position: !isMobile() ? 'absolute' : 'static',
+    bottom: 0,
+    width: '100%',
+    lineHeight: '60px',
+    backgroundColor: '#fff',
+    textAlign: 'center',
+  };
+
   return (
     <footer style={footerStyles} className="footer">
       <div className="container">
