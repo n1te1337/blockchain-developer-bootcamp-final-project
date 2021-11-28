@@ -57,7 +57,7 @@ The fronend web app for the token sale serves as an interface for the dapp and i
 2. Click `Connect` in the top-right corner of the UI to connect Metamast
 3. Enterh the amount of ETH you'd like to spend on ACME tokens
 4. Take note of the current exchange rate below
-5. Click the "Buy" button
+5. Click the `Confirm` button
 6. Confirm the transaction in Metamask
 7. Wait for the transaction to complete
 8. Click "Go back" button to go back to the main screen
