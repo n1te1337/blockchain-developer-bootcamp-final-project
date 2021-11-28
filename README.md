@@ -1,19 +1,37 @@
-# Final project - USD pegged token sale
+# Final project - ACME Token Sale
 
 ![Truffle test suite](https://github.com/n1te1337/blockchain-developer-bootcamp-final-project/actions/workflows/truffle.yaml/badge.svg)
 
-## Deployed version url
+## Project description
+
+ACME project is holding a sale of their ACME token. In order to make the token price fair the company decided to peg the price of the token to 1 USD which leverages Chainlink ETH/USD Data Feed. They created a dapp which facilitates the sale of 1,000,000 tokens and they only accept ETH as the payment method.
+
+The fronend web app for the token sale serves as an interface for the dapp and it allows a seamless exchange of ETH for ACME with the ETH/ACME price automatically updating to ensure that 1 ACME = 1 USD. The web app supports connecting with Metamask for easy user experice.
+
+## Demo
 
 https://main.dtqo6rsppdapw.amplifyapp.com
 
-## How to run this project locally
+## Video walkthrough
+
+https://user-images.githubusercontent.com/1946858/143772997-bd535f3a-f384-455c-8b14-2693c532913f.mov
+
+
+## Instructions
 
 ### Prerequisites
 
 - Node.js >= v14
-- Truffle and Ganache
 - Yarn
-- `git clone git@github.com:n1te1337/blockchain-developer-bootcamp-final-project.git`
+- Truffle and Ganache
+
+### Directory structure
+
+- `frontend`: Project's React frontend.
+- `contracts`: Smart contracts that are deployed in the Ropsten testnet.
+- `migrations`: Migration files for deploying contracts in `contracts` directory.
+- `test`: Tests for smart contracts.
+- `.github`: Github Actions config to run the test suite on every code push
 
 ### Contracts
 
@@ -29,7 +47,7 @@ https://main.dtqo6rsppdapw.amplifyapp.com
 - `yarn start`
 - Open `http://localhost:3000`
 
-### How to use the frontend with the local testnet
+### Using the frontend with a local testnet
 
 - Stop the frontend if it's already running
 - `cd frontend`
@@ -37,21 +55,16 @@ https://main.dtqo6rsppdapw.amplifyapp.com
 - `yarn start`
 - Open `http://localhost:3000`
 
-## Screencast link
+### Environment variables (not needed for running project locally)
 
-TODO: https://youtube.com
+```
+RINKEBY_MNEMONIC
+RINKEBY_INFURA_PROJECT_ID
+RINKEBY_FROM_ADDRESS
+RINKEBY_CHAINLINK_DATA_FEED_ADDRESS
+```
 
-## Public Ethereum wallet for certification
-
-`0x225D0A7C8832E0Dcb9bF60F13D17b4D32128BE8b`
-
-## Project description
-
-ACME project is holding a sale of their ACME token. In order to make the token price fair the company decided to peg the price of the token to 1 USD which leverages Chainlink ETH/USD Data Feed. They created a dapp which facilitates the sale of 1,000,000 tokens and they only accept ETH as the payment method.
-
-The fronend web app for the token sale serves as an interface for the dapp and it allows a seamless exchange of ETH for ACME with the ETH/ACME price automatically updating to ensure that 1 ACME = 1 USD. The web app supports connecting with Metamask for easy user experice.
-
-## Simple workflow
+### Simple workflow
 
 1. Make sure your Metamask is configured with the correct network type (local testnet or Rinkeby) and has some ETH available
 2. Click `Connect` in the top-right corner of the UI to connect Metamast
@@ -63,19 +76,6 @@ The fronend web app for the token sale serves as an interface for the dapp and i
 8. Click "Go back" button to go back to the main screen
 9. Take note of the current ACME token balance in the top-left corner
 
-## Directory structure
+## Public address for certification
 
-- `frontend`: Project's React frontend.
-- `contracts`: Smart contracts that are deployed in the Ropsten testnet.
-- `migrations`: Migration files for deploying contracts in `contracts` directory.
-- `test`: Tests for smart contracts.
-- `.github`: Github Actions config to run the test suite on every code push
-
-## Environment variables (not needed for running project locally)
-
-```
-RINKEBY_MNEMONIC
-RINKEBY_INFURA_PROJECT_ID
-RINKEBY_FROM_ADDRESS
-RINKEBY_CHAINLINK_DATA_FEED_ADDRESS
-```
+`0x225D0A7C8832E0Dcb9bF60F13D17b4D32128BE8b`
