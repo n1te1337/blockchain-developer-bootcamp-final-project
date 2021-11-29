@@ -86,10 +86,10 @@ const CompInteractionCard = () => {
             <CryptoIcon name="generic" size={45} />
           </div>
           <Text block center t3 className="mt-4">
-            Success! Enjoy your ACME tokens
+            The transaction has been confirmed<br />Enjoy your ACME tokens!
           </Text>
           <div style={{ marginTop: 58, textAlign: 'center' }}>
-            <Check2Circle style={{ color: colors.blue }} size={48} />
+            <Check2Circle style={{ color: colors.blue }} size={56} />
           </div>
           <Button onClick={() => setTxnStatus('NOT_SUBMITTED')} style={{ marginTop: '4rem' }} size="lg">
             <ArrowLeft style={{ verticalAlign: 'middle' }} /> Go back
