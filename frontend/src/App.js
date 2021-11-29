@@ -17,11 +17,11 @@ const App = () => {
   return (
     <AppContextProvider>
       <Web3ReactProvider getLibrary={getLibrary}>
-        <div>
+        <div style={{ maxWidth: '1320px', margin: '0 auto' }}>
           <Header />
           <Route exact path="/" component={Home} />
-          <Footer />
         </div>
+        <Footer />
       </Web3ReactProvider>
     </AppContextProvider>
   );
