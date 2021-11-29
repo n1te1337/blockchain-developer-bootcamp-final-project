@@ -8,14 +8,13 @@ ACME project is holding a sale of their ACME token. In order to make the token p
 
 The fronend web app for the token sale serves as an interface for the dapp and it allows a seamless exchange of ETH for ACME with the ETH/ACME price automatically updating to ensure that 1 ACME = 1 USD. The web app supports connecting with Metamask for easy user experice.
 
-## Demo
+## Demo (Rinkeby)
 
 https://main.dtqo6rsppdapw.amplifyapp.com
 
 ## Video walkthrough
 
-https://user-images.githubusercontent.com/1946858/143772997-bd535f3a-f384-455c-8b14-2693c532913f.mov
-
+https://user-images.githubusercontent.com/1946858/143854044-7e6c9c88-e951-4dcc-85d2-744aff7481f5.mov
 
 ## Instructions
 
