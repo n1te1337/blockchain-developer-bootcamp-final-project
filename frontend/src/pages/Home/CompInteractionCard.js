@@ -28,9 +28,15 @@ const Container = styled.div`
 const CompInteractionCard = () => {
   const [depositAmount, setDepositAmount] = useState(0);
   const { setWalletConnectModal } = useAppContext();
-  const { deposit, acmeTokenBalance, exchangeRate } = useACMEToken();
+  const { deposit, acmeTokenSupply, acmeTokenBalance, exchangeRate } = useACMEToken();
   const { ethBalance } = useEth();
   const { txnStatus, setTxnStatus } = useTransaction();
+
+  useEffect(() => {
+    if (!!depositAmount && !exchangeRate) {
+      setWalletConnectModal(true);
+    }
+  }, [depositAmount])
 
   const convertedAmount = useMemo(() => Number(depositAmount * exchangeRate), [depositAmount, exchangeRate]);
 
@@ -40,16 +46,27 @@ const CompInteractionCard = () => {
     }
   }
 
-  useEffect(() => {
-    if (!!depositAmount && !exchangeRate) {
-      setWalletConnectModal(true);
+  const displayACMETokenSupply = () => {
+    if (acmeTokenSupply > 0) {
+      return (
+        <Card style={{ color: '#007bff', maxWidth: 420, marginTop: 24, marginBottom: 48 }}>
+          <div className="">
+            <Text block center t1 className="">
+              {Number(Number(acmeTokenSupply).toFixed(0)).toLocaleString()}
+            </Text>
+            <Text block center t6 className="text-muted">
+              ACME tokens remaining in the supply
+            </Text>
+          </div>
+        </Card>
+      );
     }
-  }, [depositAmount])
+  }
 
   if (txnStatus === 'APPROVING') {
     return (
       <Container show>
-        <Card style={{ maxWidth: 420, minHeight: 390, paddingTop: 36, marginBottom: 48 }}>
+        <Card style={{ maxWidth: 420, minHeight: 390, paddingTop: 36, marginBottom: 16 }}>
           <div style={{ textAlign: 'center' }}>
             <CryptoIcon name="generic" size={45} />
           </div>
@@ -58,6 +75,7 @@ const CompInteractionCard = () => {
           </Text>
           <Spinner animation="grow" role="status" variant="primary" className="m-auto" />
         </Card>
+        {displayACMETokenSupply()}
       </Container>
     );
   }
@@ -65,7 +83,7 @@ const CompInteractionCard = () => {
   if (txnStatus === 'CONFIRMING') {
     return (
       <Container show>
-        <Card style={{ maxWidth: 420, minHeight: 390, paddingTop: 36, marginBottom: 48 }}>
+        <Card style={{ maxWidth: 420, minHeight: 390, paddingTop: 36, marginBottom: 16 }}>
           <div style={{ textAlign: 'center' }}>
             <CryptoIcon name="generic" size={45} />
           </div>
@@ -74,6 +92,7 @@ const CompInteractionCard = () => {
           </Text>
           <Spinner animation="border" role="status" variant="primary" className="m-auto" />
         </Card>
+        {displayACMETokenSupply()}
       </Container>
     );
   }
@@ -81,7 +100,7 @@ const CompInteractionCard = () => {
   if (txnStatus === 'COMPLETE') {
     return (
       <Container show>
-        <Card style={{ maxWidth: 420, minHeight: 390, paddingTop: 36, marginBottom: 48 }}>
+        <Card style={{ maxWidth: 420, minHeight: 390, paddingTop: 36, marginBottom: 16 }}>
           <div style={{ textAlign: 'center' }}>
             <CryptoIcon name="generic" size={45} />
           </div>
@@ -95,6 +114,7 @@ const CompInteractionCard = () => {
             <ArrowLeft style={{ verticalAlign: 'middle' }} /> Go back
           </Button>
         </Card>
+        {displayACMETokenSupply()}
       </Container>
     );
   }
@@ -102,7 +122,7 @@ const CompInteractionCard = () => {
   if (txnStatus === 'ERROR') {
     return (
       <Container show>
-        <Card style={{ maxWidth: 420, minHeight: 390, paddingTop: 36, marginBottom: 48 }}>
+        <Card style={{ maxWidth: 420, minHeight: 390, paddingTop: 36, marginBottom: 16 }}>
           <div style={{ textAlign: 'center' }}>
             <CryptoIcon name="generic" size={45} />
           </div>
@@ -116,13 +136,14 @@ const CompInteractionCard = () => {
             <ArrowLeft style={{ verticalAlign: 'middle' }} /> Go back
           </Button>
         </Card>
+        {displayACMETokenSupply()}
       </Container>
     );
   }
 
   return (
     <Container show>
-      <Card style={{ maxWidth: 420, minHeight: 390, marginBottom: 48 }}>
+      <Card style={{ maxWidth: 420, minHeight: 390, marginBottom: 16 }}>
         <Text style={{ textAlign: 'center' }} t2 color={colors.dark} className="mb-3">EXCHANGE</Text>
         <BalanceInput balance={ethBalance} value={!depositAmount ? Number(depositAmount).toFixed(4) : depositAmount} setValue={setDepositAmount} currency="eth" />
         <ArrowDown color={colors.dark} size={36} style={{ margin: '0.75rem auto' }} />
@@ -131,6 +152,7 @@ const CompInteractionCard = () => {
           <BagCheck style={{ verticalAlign: 'baseline', paddingTop: '1px' }} /> Confirm
         </Button>
       </Card>
+      {displayACMETokenSupply()}
     </Container>
   );
 };

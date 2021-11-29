@@ -14,15 +14,22 @@ export const useACMEToken = () => {
   const { fetchEthBalance } = useEth();
   const {
     setWalletConnectModal,
+    setACMETokenSupply,
     setACMETokenBalance,
     setExchangeRate,
     setTxnStatus,
+    acmeTokenSupply,
     acmeTokenBalance,
     exchangeRate
   } = useAppContext();
 
   const acmeTokenContractAddress = constants.ACME_TOKEN_VENDOR_CONTRACT_ADDRESS;
   const acmeTokenContract = useContract(acmeTokenContractAddress, ACME_VENDOR_ABI);
+
+  const fetchACMETokenSupply = async () => {
+    const acmeTokenBalance = await acmeTokenContract.balanceOf(constants.ACME_TOKEN_VENDOR_CONTRACT_ADDRESS);
+    setACMETokenSupply(formatUnits(acmeTokenBalance, 18));
+  };
 
   const fetchACMETokenBalance = async () => {
     const acmeTokenBalance = await acmeTokenContract.balanceOf(account);
@@ -46,6 +53,7 @@ export const useACMEToken = () => {
         await txn.wait(1);
         await fetchEthBalance();
         await fetchACMETokenBalance();
+        await fetchACMETokenSupply();
         setTxnStatus('COMPLETE');
       } catch (error) {
         setTxnStatus('ERROR');
@@ -58,13 +66,26 @@ export const useACMEToken = () => {
   useEffect(() => {
     if (account) {
       getACMETokenExchangeRate();
+      fetchACMETokenSupply();
     }
   }, [account]);
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (account) {
+        fetchACMETokenSupply();
+      }
+    }, 10000);
+
+    return () => clearInterval(interval);
+  }, [account]);
+
   return {
+    acmeTokenSupply,
     acmeTokenBalance,
     exchangeRate,
     getACMETokenExchangeRate,
+    fetchACMETokenSupply,
     fetchACMETokenBalance,
     deposit,
   };

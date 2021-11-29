@@ -5,6 +5,8 @@ const initialContext = {
   setEthBalance: () => {},
   acmeTokenBalance: '0.0000',
   setACMETokenBalance: () => {},
+  acmeTokenSupply: 0,
+  setACMETokenSupply: () => {},
   exchangeRate: 0,
   setExchangeRate: () => {},
   isWalletConnectModalOpen: false,
@@ -25,6 +27,12 @@ const appReducer = (state, { type, payload }) => {
       return {
         ...state,
         acmeTokenBalance: payload,
+      };
+
+    case 'SET_ACME_TOKEN_SUPPLY':
+      return {
+        ...state,
+        acmeTokenSupply: payload,
       };
 
     case 'SET_EXCHANGE_RATE':
@@ -64,6 +72,10 @@ export const AppContextProvider = ({ children }) => {
     acmeTokenBalance: store.acmeTokenBalance,
     setACMETokenBalance: (balance) => {
       dispatch({ type: 'SET_ACME_TOKEN_BALANCE', payload: balance });
+    },
+    acmeTokenSupply: store.acmeTokenSupply,
+    setACMETokenSupply: (supply) => {
+      dispatch({ type: 'SET_ACME_TOKEN_SUPPLY', payload: supply });
     },
     exchangeRate: store.exchangeRate,
     setExchangeRate: (rate) => {

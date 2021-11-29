@@ -23,20 +23,20 @@ const BalanceCard = () => {
   }, [account]);
 
   return (
-    <Card style={{ maxWidth: !isMobile() ? 230 : '100%', padding: 0, marginTop: '15px' }}>
+    <Card style={{ maxWidth: !isMobile() ? 250 : '100%', padding: 0, marginTop: '15px' }}>
       <ListGroup variant="flush">
         <ListGroup.Item>
           <span style={{ verticalAlign: 'middle' }}><CryptoIcon name="eth" size={25} /></span>
           <Text style={{ paddingLeft: '6px', verticalAlign: 'sub' }} t4 color={colors.black}>{' ETH'}</Text>
-          <Text style={{ float: 'right', marginRight: '10px', verticalAlign: 'middle' }} t3 color={colors.black}>
-            {ethBalance}
+          <Text style={{ float: 'right', marginRight: '6px', verticalAlign: 'middle' }} t3 color={colors.black}>
+            {Number(ethBalance).toFixed(4)}
           </Text>
         </ListGroup.Item>
         <ListGroup.Item>
           <span style={{ verticalAlign: 'middle' }}><CryptoIcon name="generic" size={25} /></span>
           <Text style={{ paddingLeft: '6px', verticalAlign: 'sub' }} t4 color={colors.black}>{' ACME'}</Text>
-          <Text style={{ float: 'right', marginRight: '10px', verticalAlign: 'middle' }} t3 color={colors.black}>
-            {acmeTokenBalance}
+          <Text style={{ float: 'right', marginRight: '6px', verticalAlign: 'middle' }} t3 color={colors.black}>
+            {acmeTokenBalance > 0 ? Number(acmeTokenBalance).toFixed(2) : '0.0000'}
           </Text>
         </ListGroup.Item>
       </ListGroup>

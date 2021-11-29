@@ -6,7 +6,7 @@ const Footer = () => {
     position: !isMobile() ? 'absolute' : 'static',
     bottom: 0,
     width: '100%',
-    lineHeight: !isMobile() ? '60px' : '48px',
+    lineHeight: '60px',
     backgroundColor: '#fff',
     textAlign: 'center',
   };
@@ -14,7 +14,7 @@ const Footer = () => {
   return (
     <footer style={footerStyles} className="footer">
       <div className="container">
-        <span className="text-muted">Copyright &copy; {new Date().getFullYear()} ACME Corporation{isMobile() ? <br /> : '. '}All Rights Reserved</span>
+        <span className="text-muted">Copyright &copy; {new Date().getFullYear()} ACME Corporation. {!isMobile() && 'All Rights Reserved'}</span>
       </div>
     </footer>
   );
