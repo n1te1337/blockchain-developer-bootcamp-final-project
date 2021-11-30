@@ -36,7 +36,7 @@ export const useACMEToken = () => {
     setACMETokenBalance(formatUnits(acmeTokenBalance, 18));
   };
 
-  const getACMETokenExchangeRate = async () => {
+  const fetchACMETokenExchangeRate = async () => {
     const currentExchangeRate = await acmeTokenContract.callStatic.getLatestTokensPerEth();
     setExchangeRate(currentExchangeRate);
   };
@@ -65,7 +65,7 @@ export const useACMEToken = () => {
 
   useEffect(() => {
     if (account) {
-      getACMETokenExchangeRate();
+      fetchACMETokenExchangeRate();
       fetchACMETokenSupply();
     }
   }, [account]);
@@ -73,9 +73,10 @@ export const useACMEToken = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       if (account) {
+        fetchACMETokenExchangeRate();
         fetchACMETokenSupply();
       }
-    }, 10000);
+    }, 15000);
 
     return () => clearInterval(interval);
   }, [account]);
@@ -84,7 +85,7 @@ export const useACMEToken = () => {
     acmeTokenSupply,
     acmeTokenBalance,
     exchangeRate,
-    getACMETokenExchangeRate,
+    fetchACMETokenExchangeRate,
     fetchACMETokenSupply,
     fetchACMETokenBalance,
     deposit,
